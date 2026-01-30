@@ -1,0 +1,21 @@
+# spacetaxi server configuration example
+# Copy to config.toml and modify as needed
+
+[server]
+# Bind address
+host = "127.0.0.1"
+port = 3000
+
+[storage]
+# Data directory for files and database
+data_dir = "./data"
+
+# Maximum file size in bytes (5GB default)
+max_file_size = 5368709120
+
+[limits]
+# Default expiration time in seconds (24 hours)
+default_expiration = 86400
+
+# Maximum expiration time in seconds (7 days)
+max_expiration = 604800

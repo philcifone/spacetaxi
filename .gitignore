@@ -1,0 +1,30 @@
+# Build artifacts
+/target/
+/web/dist/
+/web/node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Environment and config
+.env
+.env.local
+config.toml
+
+# Data
+/data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

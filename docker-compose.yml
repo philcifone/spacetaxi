@@ -1,0 +1,15 @@
+services:
+  spacetaxi:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - spacetaxi-data:/data
+    environment:
+      - RUST_LOG=spacetaxi_server=info,tower_http=info
+      - SPACETAXI_HOST=0.0.0.0
+      - SPACETAXI_PORT=3000
+    restart: unless-stopped
+
+volumes:
+  spacetaxi-data:
