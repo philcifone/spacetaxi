@@ -1,5 +1,15 @@
 # spacetaxi
 
+## AI DISCLAIMER
+
+THIS IS AN LLM-ASSISTED PROJECT - USE AT YOUR OWN RISK!!!
+
+NO WARRANTIES PROVIDED OR PRIVACY/SECURITY GUARANTEED
+
+NOT RESPONSIBLE FOR ANY ILLEGAL OR MISUSE OF THIS PROJECT
+
+## Project
+
 End-to-end encrypted file sharing. Files are encrypted client-side before upload; the server never sees plaintext data or decryption keys.
 
 ## Features
@@ -20,7 +30,7 @@ Requires Rust 1.70+ and Node.js 18+.
 
 ```bash
 # Clone repository
-git clone https://github.com/yourorg/spacetaxi.git
+git clone https://github.com/philcifone/spacetaxi.git
 cd spacetaxi
 
 # Build CLI and server
