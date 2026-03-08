@@ -111,6 +111,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/{id}", delete(routes::delete_file))
         // Static assets
         .route("/assets/decrypt.js", get(routes::serve_decrypt_js))
+        .route("/assets/fonts/young-serif-latin-400-normal.woff2", get(routes::serve_young_serif_font))
         .layer(CorsLayer::new().allow_origin(Any).allow_methods(Any).allow_headers(Any))
         .layer(DefaultBodyLimit::disable()) // Disable body limit for large chunk uploads
         .with_state(state);

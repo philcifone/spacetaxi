@@ -15,6 +15,9 @@ use std::sync::Arc;
 // Include the decrypt.js at compile time
 const DECRYPT_JS: &str = include_str!("../../web/dist/decrypt.js");
 
+// Include the Young Serif font at compile time
+const YOUNG_SERIF_WOFF2: &[u8] = include_bytes!("../../server/assets/fonts/young-serif-latin-400-normal.woff2");
+
 fn generate_id() -> String {
     use rand::Rng;
     let chars: Vec<char> = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -301,83 +304,128 @@ pub async fn download_page(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>spacetaxi - Download {filename}</title>
     <style>
+        @font-face {{
+            font-family: 'Young Serif';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/assets/fonts/young-serif-latin-400-normal.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+                U+2212, U+2215, U+FEFF, U+FFFD;
+        }}
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: monospace;
+            background: #3c3836;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
+            padding: 20px;
         }}
         .container {{
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 2rem;
-            max-width: 400px;
-            width: 90%;
+            background: white;
+            border: 2px solid black;
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 8px 8px 0 0 black;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }}
-        .logo {{ font-size: 2rem; margin-bottom: 1rem; }}
-        h1 {{ font-size: 1.5rem; margin-bottom: 0.5rem; word-break: break-all; }}
-        .size {{ color: #888; margin-bottom: 1.5rem; }}
+        h1 {{
+            font-family: 'Young Serif', serif;
+            font-size: 28px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            font-weight: 400;
+            line-height: 1.3;
+            word-break: break-all;
+        }}
+        .size {{
+            font-size: 16px;
+            color: #6a6a6a;
+            margin-bottom: 24px;
+        }}
         .progress-container {{
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+            background: #e0e0e0;
+            height: 8px;
             overflow: hidden;
-            margin-bottom: 1rem;
+            margin-bottom: 16px;
             display: none;
         }}
         .progress {{
             height: 8px;
-            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            background: #1a1a1a;
             width: 0%;
             transition: width 0.3s;
         }}
-        .status {{ color: #888; margin-bottom: 1.5rem; }}
+        .status {{
+            font-size: 16px;
+            color: #6a6a6a;
+            margin-bottom: 24px;
+        }}
         .password-form {{
-            margin-bottom: 1.5rem;
+            margin-bottom: 24px;
             display: none;
         }}
         .password-form input {{
             width: 100%;
-            padding: 0.75rem;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            margin-bottom: 0.5rem;
+            padding: 12px;
+            border: 2px solid #1a1a1a;
+            background: white;
+            color: #1a1a1a;
+            font-family: monospace;
+            font-size: 16px;
+            margin-bottom: 12px;
         }}
-        .password-form input::placeholder {{ color: #888; }}
+        .password-form input::placeholder {{ color: #999; }}
+        .password-form input:focus {{
+            outline: none;
+            box-shadow: 4px 4px 0 0 black;
+        }}
         button {{
-            background: linear-gradient(90deg, #00d9ff, #00ff88);
-            border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
-            color: #1a1a2e;
+            background: #1a1a1a;
+            border: 2px solid #1a1a1a;
+            padding: 12px 32px;
+            color: white;
+            font-family: monospace;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: box-shadow 0.15s, transform 0.15s;
         }}
-        button:hover {{ transform: scale(1.05); }}
+        button:hover {{
+            box-shadow: 4px 4px 0 0 black;
+            transform: translate(-2px, -2px);
+        }}
+        button:active {{
+            box-shadow: none;
+            transform: translate(0, 0);
+        }}
         button:disabled {{
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
+            box-shadow: none;
             transform: none;
         }}
         .error {{
-            color: #ff6b6b;
-            margin-top: 1rem;
+            color: #cc3333;
+            font-size: 16px;
+            margin-top: 16px;
             display: none;
+        }}
+        @media (max-width: 640px) {{
+            .container {{
+                padding: 40px 24px;
+                box-shadow: 6px 6px 0 0 black;
+            }}
+            h1 {{ font-size: 24px; }}
         }}
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">🚀</div>
         <h1>{filename}</h1>
         <p class="size">{size}</p>
         <div class="password-form" id="passwordForm">
@@ -506,6 +554,17 @@ pub async fn serve_decrypt_js() -> impl IntoResponse {
     (
         [(header::CONTENT_TYPE, "application/javascript")],
         DECRYPT_JS,
+    )
+}
+
+/// GET /assets/fonts/young-serif-latin-400-normal.woff2
+pub async fn serve_young_serif_font() -> impl IntoResponse {
+    (
+        [
+            (header::CONTENT_TYPE, "font/woff2"),
+            (header::CACHE_CONTROL, "public, max-age=31536000, immutable"),
+        ],
+        YOUNG_SERIF_WOFF2,
     )
 }
 
