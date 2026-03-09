@@ -6,8 +6,6 @@ THIS IS AN LLM-ASSISTED PROJECT - USE AT YOUR OWN RISK!!!
 
 NO WARRANTIES PROVIDED OR PRIVACY/SECURITY GUARANTEED
 
-NOT RESPONSIBLE FOR ANY ILLEGAL OR MISUSE OF THIS PROJECT
-
 ## Project
 
 End-to-end encrypted file sharing. Files are encrypted client-side before upload; the server never sees plaintext data or decryption keys.
