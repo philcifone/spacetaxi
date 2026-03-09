@@ -37,8 +37,11 @@ cargo build --release
 # Build web assets
 cd web && npm install && npm run build && cd ..
 
-# Install CLI (optional)
-cp target/release/spacetaxi ~/.local/bin/
+# Install CLI
+sudo cp target/release/spacetaxi /usr/local/bin/
+
+# Install server
+sudo cp target/release/spacetaxi-server /usr/local/bin/
 ```
 
 ### Pre-built binaries
